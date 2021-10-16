@@ -30,12 +30,10 @@ export class TodoService {
   }
 
   isComplete(todo: TodoModel): Observable<any> {
-    const url = `${this.url}/${todo.id}`;
-    return this.http.put('http://localhost:8080/rest/todo/addTodo', todo);
+    return this.http.put('http://localhost:8080/rest/todo/isComplete/' +todo._id, todo);
   }
 
   deleteTodo(todo: TodoModel): Observable<TodoModel> {
-    const url = `${this.url}/${todo.id}`;
     return this.http.delete<TodoModel>('http://localhost:8080/rest/todo/addTodo');
   }
 }

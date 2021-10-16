@@ -26,9 +26,8 @@ export class TodoItemsComponent implements OnInit {
   }
 
   onComplete(todo) {
-    todo.check = !todo.check;
+    todo.checked = !todo.checked;
     this.todoService.isComplete(todo).subscribe((todo) => {
-      console.log(todo);
     }, error => {
       this.displayFailureMessage = true;
       this.failureMessage = 'Unable to Add right now, try again in sometime.'

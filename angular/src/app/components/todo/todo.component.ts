@@ -21,7 +21,7 @@ export class TodoComponent implements OnInit {
   }
 
   deleteTodo(todo : TodoModel) {
-    this.todos = this.todos.filter(t => t.id !== todo.id);
+    this.todos = this.todos.filter(t => t._id !== todo._id);
     this.todoService.deleteTodo(todo).subscribe((_) => {
     }, error => {
       this.displayFailureMessage = true;
@@ -30,9 +30,7 @@ export class TodoComponent implements OnInit {
   }
 
   addTodo(todo : TodoModel) {
-    let todoCount = todo.id;
     this.todoService.addTodo(todo).subscribe(todo => {
-      todo.id = todoCount;
       this.todos.push(todo);
     }, error => {
       this.displayFailureMessage = true;

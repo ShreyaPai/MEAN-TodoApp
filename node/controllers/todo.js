@@ -39,3 +39,29 @@ exports.getTodos = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.isComplete = async (req, res, next) => {
+  let todoId = req.params.todoId;
+  try {
+    const todo = await TODO.findById(todoId);
+    if (!todo) {
+      const err = new Error('Not found');
+      err.statusCodes = '422';
+      throw err;
+    }
+    todo.title = req.body.title;
+    todo.checked = req.body.checked;
+    if (todo._id.toString() === todoId.toString()) {
+      const completedTodo = await todo.save();
+      res.status(200).json({
+        message: 'Complete',
+        todo: completedTodo
+      });
+    }
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+}
