@@ -36,4 +36,8 @@ export class TodoService {
   deleteTodo(todo: TodoModel): Observable<TodoModel> {
     return this.http.delete<TodoModel>('http://localhost:8080/rest/todo/removeTodo/' +todo._id);
   }
+
+  getCompletedTodoList(): Observable<TodoModel[]> {
+    return this.http.get<TodoModel[]>('http://localhost:8080/rest/todo/getCompletedTodos');
+  }
 }

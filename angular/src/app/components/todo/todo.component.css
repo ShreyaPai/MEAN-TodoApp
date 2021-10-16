@@ -1,0 +1,12 @@
+h1 {
+  color: black;
+  text-align: center;
+  padding: 10px;
+}
+
+.clr {
+  background-color: teal;
+  color: white;
+  border: none;
+  margin-left: 85%;
+}

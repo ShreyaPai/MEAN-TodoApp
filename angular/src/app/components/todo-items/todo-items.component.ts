@@ -12,6 +12,7 @@ export class TodoItemsComponent implements OnInit {
   @Output() deleteTodo: EventEmitter<TodoModel> = new EventEmitter();
   displayFailureMessage: boolean;
   failureMessage: string;
+  completedTodos: any;
 
   constructor(private todoService: TodoService) {}
 
@@ -28,6 +29,7 @@ export class TodoItemsComponent implements OnInit {
   onComplete(todo) {
     todo.checked = !todo.checked;
     this.todoService.isComplete(todo).subscribe((todo) => {
+      this.onDelete(todo);
     }, error => {
       this.displayFailureMessage = true;
       this.failureMessage = 'Unable to Add right now, try again in sometime.'

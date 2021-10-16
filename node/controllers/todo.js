@@ -1,4 +1,6 @@
 const TODO = require("../models/todo");
+const CompltedTODO = require("../models/completed-todo");
+const completedTodo = require("../models/completed-todo");
 exports.addTodo = async (req, res, next) => {
   const title = req.body.title;
   const checked = req.body.checked;
@@ -52,10 +54,15 @@ exports.isComplete = async (req, res, next) => {
     todo.title = req.body.title;
     todo.checked = req.body.checked;
     if (todo._id.toString() === todoId.toString()) {
+      const completed_todo = new CompltedTODO({
+        title: todo.title,
+        checked: todo.checked,
+      });
+      await completed_todo.save();
       const completedTodo = await todo.save();
       res.status(200).json({
-        message: 'Complete',
-        todo: completedTodo
+        message: "Complete",
+        todo: completedTodo,
       });
     }
   } catch (error) {
@@ -81,6 +88,26 @@ exports.removeTodo = async (req, res, next) => {
         message: 'Deleted',
       });
     }
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+}
+
+exports.getCompletedTodos = async (req, res, next) => {
+  try {
+    const todos = await CompltedTODO.find();
+    if (!todos) {
+      const err = new Error("There is nothing to display");
+      err.statusCode = 404;
+      throw err;
+    }
+    res.status(200).json({
+        message: 'Todos List',
+        todos: todos
+    });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;

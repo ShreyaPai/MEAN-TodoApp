@@ -5,3 +5,8 @@
   <div class="alert alert-warning" role="alert" *ngIf="displayFailureMessage">
     {{ failureMessage }}    </div>
 </app-todo-items>
+<div class="container">
+  <h1>Completed Todos</h1>
+  <button class="clr" (click) = "clearAllCompltedTodos()">Clear All</button>
+</div>
+<app-completed-todo *ngFor="let completedTodo of completedTodos" [completedTodo]="completedTodo"></app-completed-todo>
