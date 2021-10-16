@@ -115,3 +115,18 @@ exports.getCompletedTodos = async (req, res, next) => {
     next(error);
   }
 }
+
+exports.clearAll = async (req, res, next) => {
+  try {
+    const todos = await CompltedTODO.deleteMany({});
+    res.status(200).json({
+      message: 'Cleared All',
+      todos: todos
+    })
+  } catch(error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+}

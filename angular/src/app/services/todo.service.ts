@@ -40,4 +40,7 @@ export class TodoService {
   getCompletedTodoList(): Observable<TodoModel[]> {
     return this.http.get<TodoModel[]>('http://localhost:8080/rest/todo/getCompletedTodos');
   }
+  clearCompletedTodos(): Observable<TodoModel> {
+    return this.http.delete<TodoModel>('http://localhost:8080/rest/todo/clearAll');
+  }
 }

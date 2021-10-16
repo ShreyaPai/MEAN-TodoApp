@@ -8,5 +8,5 @@ router.get('/getTodos', todoController.getTodos);
 router.put('/isComplete/:todoId', todoController.isComplete);
 router.delete('/removeTodo/:todoId', todoController.removeTodo);
 router.get('/getCompletedTodos', todoController.getCompletedTodos);
-
+router.delete('/clearAll', todoController.clearAll);
 module.exports = router;
