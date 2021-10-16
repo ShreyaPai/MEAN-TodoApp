@@ -1,0 +1,10 @@
+.button {
+  background-color: grey;
+  color: white;
+  border: none;
+  height: 30px;
+}
+.input-group {
+  margin-top: 10px;
+  justify-content: center;
+}

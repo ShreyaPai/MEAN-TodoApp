@@ -1,0 +1,15 @@
+.is-complete {
+  text-decoration: line-through;
+}
+
+.todo {
+  background-color: white;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+button {
+  border: none;
+  padding: 5px 9px;
+  float: right;
+}
