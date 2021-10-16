@@ -65,3 +65,26 @@ exports.isComplete = async (req, res, next) => {
     next(error);
   }
 }
+
+exports.removeTodo = async (req, res, next) => {
+  let todoId = req.params.todoId;
+  try {
+    const todo = await TODO.findById(todoId);
+    if (!todo) {
+      const err = new Error('Not found');
+      err.statusCodes = '422';
+      throw err;
+    }
+    if (todo._id.toString() === todoId.toString()) {
+     await TODO.findByIdAndDelete(todoId);
+      res.status(200).json({
+        message: 'Deleted',
+      });
+    }
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+}

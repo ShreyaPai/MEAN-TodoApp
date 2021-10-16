@@ -2,6 +2,7 @@
   <p>
     <input type="checkbox" (change) = "onComplete(todo)" />
     {{ todo.title }}
-    <button class="btn btn-default btn-sm" (click) = "onDelete(todo)">x</button>
+    <button class="btn btn-default btn-sm" style="color: red;"
+    (click) = "onDelete(todo)">x</button>
   </p>
 </div>

@@ -15,6 +15,10 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {
     this.todos = [];
+    this.getTodos();
+  }
+
+  getTodos(): void {
     this.todoService.getTodoList().subscribe((response) => {
       this.todos = response['todos'].filter((todo) => !todo.checked);
     });
@@ -23,6 +27,7 @@ export class TodoComponent implements OnInit {
   deleteTodo(todo : TodoModel) {
     this.todos = this.todos.filter(t => t._id !== todo._id);
     this.todoService.deleteTodo(todo).subscribe((_) => {
+      this.getTodos();
     }, error => {
       this.displayFailureMessage = true;
       this.failureMessage = 'Unable to Delete right now, try again in sometime.'
@@ -30,8 +35,10 @@ export class TodoComponent implements OnInit {
   }
 
   addTodo(todo : TodoModel) {
-    this.todoService.addTodo(todo).subscribe(todo => {
+    this.todoService.addTodo(todo)
+    .subscribe(todo => {
       this.todos.push(todo);
+      this.getTodos();
     }, error => {
       this.displayFailureMessage = true;
       this.failureMessage = 'Unable to Add right now, try again in sometime.'

@@ -1,8 +1,7 @@
 .button {
-  background-color: grey;
+  background-color: teal;
   color: white;
   border: none;
-  height: 30px;
 }
 .input-group {
   margin-top: 10px;
