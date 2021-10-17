@@ -51,18 +51,20 @@ exports.isComplete = async (req, res, next) => {
       err.statusCodes = '422';
       throw err;
     }
-    todo.title = req.body.title;
-    todo.checked = req.body.checked;
+    // todo.title = req.body.title;
+    // todo.checked = req.body.checked;
     if (todo._id.toString() === todoId.toString()) {
+      // saving in a new collection
       const completed_todo = new CompltedTODO({
         title: todo.title,
         checked: todo.checked,
       });
       await completed_todo.save();
-      const completedTodo = await todo.save();
+      // updating existing collection
+      const updatedTodoList = await TODO.findByIdAndUpdate(todoId, {$set:req.body},{new:true});
       res.status(200).json({
         message: "Complete",
-        todo: completedTodo,
+        todo: updatedTodoList,
       });
     }
   } catch (error) {
@@ -73,13 +75,39 @@ exports.isComplete = async (req, res, next) => {
   }
 }
 
+exports.editTodo = async (req, res, next) => {
+  const todoId = req.params.todoId;
+  try {
+    const todo = await TODO.findById(todoId);
+    if (!todo) {
+      const err = new Error('Not Found');
+      err.statusCode = 422;
+      throw err;
+    }
+    if (todoId.toString() === todo._id.toString()) {
+      // todo.title = req.body.title;
+      // todo.checked = req.body.checked;
+      const newTodo = await TODO.findByIdAndUpdate(todoId, {$set:req.body},{new:true});
+      res.status(200).json({
+        message: 'Edited Title',
+        todo: newTodo
+      })
+    }
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next();
+  }
+}
+
 exports.removeTodo = async (req, res, next) => {
   let todoId = req.params.todoId;
   try {
     const todo = await TODO.findById(todoId);
     if (!todo) {
       const err = new Error('Not found');
-      err.statusCodes = '422';
+      err.statusCode = '422';
       throw err;
     }
     if (todo._id.toString() === todoId.toString()) {
@@ -121,7 +149,7 @@ exports.clearAll = async (req, res, next) => {
     const todos = await CompltedTODO.deleteMany({});
     res.status(200).json({
       message: 'Cleared All',
-      todos: todos
+      todos: []
     })
   } catch(error) {
     if (!error.statusCode) {
