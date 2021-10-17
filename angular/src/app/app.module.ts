@@ -8,6 +8,7 @@ import { TodoItemsComponent } from './components/todo-items/todo-items.component
 import { HttpClientModule } from '@angular/common/http';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { CompletedTodoComponent } from './components/completed-todo/completed-todo.component';
+import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CompletedTodoComponent } from './components/completed-todo/completed-to
     TodoComponent,
     TodoItemsComponent,
     AddTodoComponent,
-    CompletedTodoComponent
+    CompletedTodoComponent,
+    EditTodoComponent,
   ],
   imports: [
     BrowserModule,

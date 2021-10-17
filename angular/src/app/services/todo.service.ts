@@ -33,6 +33,10 @@ export class TodoService {
     return this.http.put('http://localhost:8080/rest/todo/isComplete/' +todo._id, todo);
   }
 
+  editTodo(todo: TodoModel): Observable<any> {
+    return this.http.put('http://localhost:8080/rest/todo/editTodo/' +todo._id, todo);
+  }
+
   deleteTodo(todo: TodoModel): Observable<TodoModel> {
     return this.http.delete<TodoModel>('http://localhost:8080/rest/todo/removeTodo/' +todo._id);
   }

@@ -3,6 +3,11 @@
     <input type="checkbox" (change) = "onComplete(todo)" />
     {{ todo.title }}
     <button class="btn btn-default btn-sm" style="color: red;"
-    (click) = "onDelete(todo)">x</button>
+    (click) = "showEditPopup()"><i class="material-icons">&#xe872;</i>
+  </button>
+    <button class="btn btn-default btn-sm"
+    (click) = "onDelete(todo)"><i class="material-icons">&#xe254;</i>
+  </button>
   </p>
 </div>
+<app-edit-todo *ngIf="displayEditPopup"></app-edit-todo>

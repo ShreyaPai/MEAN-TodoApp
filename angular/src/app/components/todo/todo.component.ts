@@ -22,9 +22,12 @@ export class TodoComponent implements OnInit {
   }
 
   getCompletedTodos() {
-    this.todoService.getCompletedTodoList().subscribe((response) =>
-      this.completedTodos = response['todos'].filter((t) => t.checked)
-    )
+    this.todoService
+      .getCompletedTodoList()
+      .subscribe(
+        (response) =>
+          (this.completedTodos = response['todos'].filter((t) => t.checked))
+      );
   }
 
   getTodos(): void {
@@ -33,31 +36,49 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  deleteTodo(todo : TodoModel) {
-    this.todos = this.todos.filter(t => t._id !== todo._id);
-    this.todoService.deleteTodo(todo).subscribe((_) => {
-      this.getTodos();
-      this.getCompletedTodos();
-    }, error => {
-      this.displayFailureMessage = true;
-      this.failureMessage = 'Unable to Delete right now, try again in sometime.'
-    });
+  deleteTodo(todo: TodoModel) {
+    this.todos = this.todos.filter((t) => t._id !== todo._id);
+    this.todoService.deleteTodo(todo).subscribe(
+      (_) => {
+        this.getTodos();
+        this.getCompletedTodos();
+      },
+      (error) => {
+        this.displayFailureMessage = true;
+        this.failureMessage =
+          'Unable to Delete right now, try again in sometime.';
+      }
+    );
   }
 
-  addTodo(todo : TodoModel) {
-    this.todoService.addTodo(todo)
-    .subscribe(todo => {
-      this.todos.push(todo);
-      this.getTodos();
-      this.getCompletedTodos();
-    }, error => {
-      this.displayFailureMessage = true;
-      this.failureMessage = 'Unable to Add right now, try again in sometime.'
-    })
+  editTodo(todo: TodoModel) {
+    this.todoService.editTodo(todo).subscribe(
+      (response) => {
+        this.todos = response['todos'];
+      },
+      (error) => {
+        this.displayFailureMessage = true;
+        this.failureMessage = 'Unable to Edit right now, try again in sometime.';
+      }
+    );
+  }
+
+  addTodo(todo: TodoModel) {
+    this.todoService.addTodo(todo).subscribe(
+      (todo) => {
+        this.todos.push(todo);
+        this.getTodos();
+        this.getCompletedTodos();
+      },
+      (error) => {
+        this.displayFailureMessage = true;
+        this.failureMessage = 'Unable to Add right now, try again in sometime.';
+      }
+    );
   }
 
   clearAllCompltedTodos() {
-    this.todoService.clearCompletedTodos().subscribe(response => {
+    this.todoService.clearCompletedTodos().subscribe((response) => {
       this.completedTodos = response['todos'];
     });
   }

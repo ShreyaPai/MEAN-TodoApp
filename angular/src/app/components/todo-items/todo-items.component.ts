@@ -10,9 +10,11 @@ import { TodoService } from 'src/app/services/todo.service';
 export class TodoItemsComponent implements OnInit {
   @Input() todo: TodoModel;
   @Output() deleteTodo: EventEmitter<TodoModel> = new EventEmitter();
+  @Output() editTodo: EventEmitter<TodoModel> = new EventEmitter();
   displayFailureMessage: boolean;
   failureMessage: string;
   completedTodos: any;
+  displayEditPopup: boolean;
 
   constructor(private todoService: TodoService) {}
 
@@ -38,5 +40,12 @@ export class TodoItemsComponent implements OnInit {
 
   onDelete(todo) {
     this.deleteTodo.emit(todo);
+  }
+  onEditTodo(todo) {
+    this.editTodo.emit(todo);
+  }
+
+  showEditPopup() {
+    this.displayEditPopup = true;
   }
 }
