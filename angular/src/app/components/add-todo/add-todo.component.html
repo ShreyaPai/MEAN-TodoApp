@@ -8,7 +8,7 @@
       placeholder="New Task"
     />
     <br />
-    <input type="submit" value="Add Task" class="button" />
+    <input type="submit" value="{{!isEditing ? 'Add Task' : 'Edit Task'}}" class="button" />
     </div>
     <div class="alert alert-warning" role="alert" *ngIf="isTodoEmpty">
 {{ todoEmptyMessage }}    </div>

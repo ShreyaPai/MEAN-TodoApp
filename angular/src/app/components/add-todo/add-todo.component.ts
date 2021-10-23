@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { TodoModel } from 'src/app/models/todo.model';
 
 @Component({
@@ -11,22 +11,35 @@ export class AddTodoComponent implements OnInit {
   isTodoEmpty: boolean = false;
   todoEmptyMessage = '';
   @Output() addTodo: EventEmitter<any> = new EventEmitter();
+  @Output() editTodo: EventEmitter<any> = new EventEmitter();
+  @Input() updatedTodo: TodoModel;
+  @Input() isEditing: boolean;
+  btnName: string;
   constructor() {}
 
   ngOnInit(): void {}
 
   onSubmit() {
     console.log('Submitted');
+    this.isTodoEmpty = false;
     const todo = {
       title: this.title,
       checked: false,
     };
     if (todo.title) {
-      this.isTodoEmpty = false;
-      this.addTodo.emit(todo);
+      if (!this.isEditing) {
+        if (todo.title) {
+          this.addTodo.emit(todo);
+        }
+      } else {
+        todo['_id'] = this.updatedTodo._id;
+        if (todo.title) {
+          this.editTodo.emit(todo);
+        }
+      }
     } else {
-      this.isTodoEmpty = true
-      this.todoEmptyMessage = 'Nothing to Add'
+      this.isTodoEmpty = true;
+      this.todoEmptyMessage = 'Nothing to Add';
     }
   }
 }

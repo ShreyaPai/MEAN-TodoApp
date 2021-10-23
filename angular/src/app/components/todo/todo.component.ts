@@ -51,18 +51,6 @@ export class TodoComponent implements OnInit {
     );
   }
 
-  editTodo(todo: TodoModel) {
-    this.todoService.editTodo(todo).subscribe(
-      (response) => {
-        this.todos = response['todos'];
-      },
-      (error) => {
-        this.displayFailureMessage = true;
-        this.failureMessage = 'Unable to Edit right now, try again in sometime.';
-      }
-    );
-  }
-
   addTodo(todo: TodoModel) {
     this.todoService.addTodo(todo).subscribe(
       (todo) => {

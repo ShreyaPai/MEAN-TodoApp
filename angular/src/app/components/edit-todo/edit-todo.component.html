@@ -13,6 +13,6 @@
       ></span
     ></p-header
   >
-  <app-add-todo> </app-add-todo>
+  <app-add-todo [updatedTodo]="todo" [isEditing]="isEditing" (editTodo)="editTodo($event)"> </app-add-todo>
   <p-footer> </p-footer>
 </p-dialog>
