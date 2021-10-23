@@ -56,8 +56,8 @@ exports.isComplete = async (req, res, next) => {
     if (todo._id.toString() === todoId.toString()) {
       // saving in a new collection
       const completed_todo = new CompltedTODO({
-        title: todo.title,
-        checked: todo.checked,
+        title: req.body.title,
+        checked: req.body.checked,
       });
       await completed_todo.save();
       // updating existing collection

@@ -1,6 +1,7 @@
 a.close {
-  color: #2da1c1;
-  font-size: small;
+  color: teal;
+  font-size: larger;
+  font-weight: bold;
   text-decoration: none;
   float: right;
 }
