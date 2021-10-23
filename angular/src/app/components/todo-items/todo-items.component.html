@@ -1,13 +1,13 @@
-<div [ngClass] = "setClass()" >
+<div [ngClass] = "setClass()">
   <p>
     <input type="checkbox" (change) = "onComplete(todo)" />
     {{ todo.title }}
-    <button class="btn btn-default btn-sm" style="color: red;"
-    (click) = "showEditPopup()"><i class="material-icons">&#xe872;</i>
-  </button>
+  <button type="button" class="btn btn-default btn-sm" (click)="showEditPopup()">
+    <i class="material-icons">&#xe254;</i></button>
     <button class="btn btn-default btn-sm"
-    (click) = "onDelete(todo)"><i class="material-icons">&#xe254;</i>
+    (click) = "onDelete(todo)"><i class="material-icons">&#xe872;</i>
   </button>
   </p>
 </div>
-<app-edit-todo *ngIf="displayEditPopup"></app-edit-todo>
+<div *ngIf="displayEditPopup"><app-edit-todo [displayEditPopup] = "displayEditPopup" [todo]="todo" (closeEditPopup)="closeEditPopup($event)"></app-edit-todo>
+</div>

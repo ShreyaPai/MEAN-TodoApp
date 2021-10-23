@@ -1,9 +1,18 @@
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-  </div>
-
-</div>
+<p-dialog
+  header="Edit TODO"
+  position="top"
+  [(visible)]="displayEditPopup"
+  [modal]="true"
+  [style]="{ width: '20vw' }"
+  [closeOnEscape]="false"
+  [closable]="false"
+>
+  <p-header
+    ><span><a (click)="closePopup()" class="close"
+        >x</a
+      ></span
+    ></p-header
+  >
+  <app-add-todo> </app-add-todo>
+  <p-footer> </p-footer>
+</p-dialog>
