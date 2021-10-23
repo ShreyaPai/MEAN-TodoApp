@@ -18,7 +18,9 @@ export class TodoItemsComponent implements OnInit {
 
   constructor(private todoService: TodoService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.displayEditPopup = false;
+  }
 
   setClass() {
     let classes = {
@@ -47,5 +49,8 @@ export class TodoItemsComponent implements OnInit {
 
   showEditPopup() {
     this.displayEditPopup = true;
+  }
+  closeEditPopup(event: boolean) {
+    this.displayEditPopup = event;
   }
 }
