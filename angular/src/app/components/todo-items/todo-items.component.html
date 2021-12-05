@@ -9,5 +9,7 @@
   </button>
   </p>
 </div>
-<div *ngIf="displayEditPopup"><app-edit-todo [displayEditPopup] = "displayEditPopup" [todo]="todo" (closeEditPopup)="closeEditPopup($event)"></app-edit-todo>
+<div *ngIf="displayEditPopup">
+  <app-edit-todo [displayEditPopup]="displayEditPopup" [todo]="todo" (closeEditPopup)="closeEditPopup($event)" (onEditTodo)="onEditTodo($event)">
+  </app-edit-todo>
 </div>

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TodoModel } from 'src/app/models/todo.model';
 import { TodoService } from 'src/app/services/todo.service';
-import { finalize } from "rxjs/operators";
+import { concatMap, finalize } from "rxjs/operators";
 
 @Component({
   selector: 'app-edit-todo',
@@ -12,6 +12,7 @@ export class EditTodoComponent implements OnInit {
   @Input() displayEditPopup: boolean;
   @Input() todo: TodoModel;
   @Output() closeEditPopup =  new EventEmitter<boolean>();
+  @Output() onEditTodo: EventEmitter<TodoModel> = new EventEmitter();
 
   isEditing: boolean;
 
@@ -23,10 +24,12 @@ export class EditTodoComponent implements OnInit {
   editTodo(todo: TodoModel) {
     this.todoService.editTodo(todo)
     .pipe(
-    finalize(() => this.closePopup()))
+    finalize(() => this.closePopup()),
+    )
     .subscribe(
       (response) => {
         console.log(todo);
+        this.onEditTodo.emit(todo);
       },
       (error) => {
         // this.displayFailureMessage = true;

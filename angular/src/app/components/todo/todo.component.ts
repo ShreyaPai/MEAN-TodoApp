@@ -65,6 +65,11 @@ export class TodoComponent implements OnInit {
     );
   }
 
+  editTodo(todo: TodoModel): void {
+    this.getTodos();
+    this.getCompletedTodos();
+  }
+
   clearAllCompltedTodos() {
     this.todoService.clearCompletedTodos().subscribe((response) => {
       this.completedTodos = response['todos'];

@@ -1,6 +1,6 @@
 <app-add-todo (addTodo) = "addTodo($event)"></app-add-todo>
 <!--We want each todo to be a component, each todo will have its own behaviour-->
-<app-todo-items *ngFor="let todo of todos" [todo]="todo" (deleteTodo) = "deleteTodo(todo)">
+<app-todo-items *ngFor="let todo of todos" [todo]="todo" (deleteTodo) = "deleteTodo(todo)" (editTodo)="editTodo($event)">
   <!--We are passing each todo-->
   <div class="alert alert-warning" role="alert" *ngIf="displayFailureMessage">
     {{ failureMessage }}    </div>
