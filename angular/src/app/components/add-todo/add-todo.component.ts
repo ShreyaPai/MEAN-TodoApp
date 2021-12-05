@@ -17,7 +17,11 @@ export class AddTodoComponent implements OnInit {
   btnName: string;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.title = this.isEditing ? this.updatedTodo.title : this.title
+    console.log(this.title);
+    console.log(this.updatedTodo.title);
+  }
 
   onSubmit() {
     console.log('Submitted');
@@ -30,6 +34,7 @@ export class AddTodoComponent implements OnInit {
       if (!this.isEditing) {
         if (todo.title) {
           this.addTodo.emit(todo);
+          this.title = '';
         }
       } else {
         todo['_id'] = this.updatedTodo._id;
